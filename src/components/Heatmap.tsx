@@ -21,14 +21,14 @@ export default function Heatmap() {
     const columns = Array.from({ length: 54 }, (_, colIndex) => (
         <div key={colIndex} className="flex flex-col gap-1">
             {Array.from({ length: 7 }, (_, cellIndex) => (
-                <DayCell key={`${colIndex}-${cellIndex}`} value={1}/>
+                <DayCell key={`${colIndex}-${cellIndex}`} value={0}/>
             ))}
         </div>
     ));
 
     return (
         <>
-            <div className="w-[950px] mx-auto">
+            <div className="w-[950px] mx-auto mt-25">
                 <p className="text-white mb-2 text-lg font-medium ml-2">0 hours deep in 2025</p>
                 <div className="h-[200px] border-1 rounded-xl bg-transparent mb-50 p-[18px]" style={{ borderColor: '#2D2D2D' }}>
                     <div className="flex">

@@ -109,7 +109,7 @@ function TimerDisplay({ formattedTime }: { formattedTime: string }) {
         fontWeight: 'bold',
         fontFamily: 'var(--font-geist-sans)',
         userSelect: 'none',
-        marginBottom: '0.3rem',
+        marginBottom: '0rem',
         letterSpacing: '-2px',
       }}
     >
@@ -123,25 +123,29 @@ function StartStopButton({ isRunning, setIsRunning }: { isRunning: boolean, setI
     <button
       onClick={() => setIsRunning(!isRunning)}
       style={{
-        backgroundColor: 'transparent',
-        color: 'white',
-        border: '1px solid white',
+        backgroundColor: '#333',
+        color: '#fff',
+        border: 'none',
         padding: '0.75rem 2rem',
         fontSize: '1.2rem',
         cursor: 'pointer',
-        borderRadius: '4px',
+        borderRadius: '8px',
         fontFamily: 'var(--font-geist-sans)',
-        transition: 'all 0.1s ease-in-out',
+        transition: 'all 0.15s ease-out',
         transform: isRunning ? 'translateY(3px)' : 'translateY(0)',
         boxShadow: isRunning 
-          ? 'none' 
-          : '0 3px 0 0 rgba(255, 255, 255, 0.3)',
+          ? 'inset 0 3px 6px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2)' 
+          : '0 3px 6px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.25), 0 16px 32px rgba(0, 0, 0, 0.15), inset 0 -2px 4px rgba(255, 255, 255, 0.1)',
         position: 'relative',
         width: '220px',
         textAlign: 'center',
+        fontWeight: '500',
+        letterSpacing: '0.5px',
+        outline: 'none',
+        userSelect: 'none',
       }}
     >
-      {isRunning ? 'Stop' : 'Start'}
+      {isRunning ? 'Pause' : 'Start'}
     </button>
   );
 } 
