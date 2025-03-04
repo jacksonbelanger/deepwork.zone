@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Heatmap from './Heatmap';
 
 export default function Timer() {
   const [mode, setMode] = useState('work'); // 'work' or 'break'
@@ -48,8 +47,6 @@ export default function Timer() {
       <TimerDisplay formattedTime={formattedTime} />
       
       <StartStopButton isRunning={isRunning} setIsRunning={setIsRunning} />
-      
-      <Heatmap />
     </div>
   );
 }
