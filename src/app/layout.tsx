@@ -4,15 +4,16 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "DeepWork Zone",
-  description: "Focus timer for deep work sessions",
+  title: 'deep work tracker | lock in',
+  description: 'A clean, effective deep work timer. Keep track of your heatmap',
+
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="antialiased">

@@ -1,11 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 
 export default function Timer() {
   const [mode, setMode] = useState('work'); // 'work' or 'break'
   const [timeLeft, setTimeLeft] = useState(25 * 60); // Default to work mode (25 minutes)
   const [isRunning, setIsRunning] = useState(false);
+
+  // Calculate formatted time
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+  // Update title - moved into useEffect to avoid SSR issues
+  useLayoutEffect(() => {
+    document.title = `${formattedTime} - ${mode === 'work' ? 'Working' : 'Break'}`;
+  }, [timeLeft, mode, formattedTime]);
 
   // Handle mode change
   useEffect(() => {
@@ -27,11 +37,6 @@ export default function Timer() {
     
     return () => clearInterval(timerInterval);
   }, [timeLeft, isRunning]);
-
-  // Format time as MM:SS
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
   return (
     <div style={{
