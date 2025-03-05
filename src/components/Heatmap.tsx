@@ -17,18 +17,50 @@ export default function Heatmap() {
         { label: 'Dec', column: 49 },
     ];
 
-    // Create array of 54 columns, each containing 7 cells
-    const columns = Array.from({ length: 54 }, (_, colIndex) => (
-        <div key={colIndex} className="flex flex-col gap-1">
-            {Array.from({ length: 7 }, (_, cellIndex) => (
-                <DayCell key={`${colIndex}-${cellIndex}`} value={0}/>
-            ))}
-        </div>
-    ));
+    // Create array of 53 columns, each containing appropriate cells
+    const columns = Array.from({ length: 53 }, (_, colIndex) => {
+        const isFirstColumn = colIndex === 0;
+        const isLastColumn = colIndex === 52;
+        
+        let cellsToRender;
+        if (isFirstColumn) {
+            // First column: only render bottom 4 cells (indices 3-6)
+            cellsToRender = Array.from({ length: 7 }, (_, cellIndex) => {
+                if (cellIndex < 3) {
+                    // Return empty div with same height to maintain spacing
+                    return <div key={`${colIndex}-${cellIndex}`} style={{ height: '12px' }}></div>;
+                }
+                const cellNumber = (colIndex * 7) + cellIndex;
+                return <DayCell key={`${colIndex}-${cellIndex}`} value={0} index={cellNumber - 3} />;
+            });
+        } else if (isLastColumn) {
+            // Last column: only render top 4 cells (indices 0-3)
+            cellsToRender = Array.from({ length: 7 }, (_, cellIndex) => {
+                if (cellIndex > 3) {
+                    // Return empty div with same height to maintain spacing
+                    return <div key={`${colIndex}-${cellIndex}`} style={{ height: '12px' }}></div>;
+                }
+                const cellNumber = (colIndex * 7) + cellIndex;
+                return <DayCell key={`${colIndex}-${cellIndex}`} value={0} index={cellNumber - 3} />;
+            });
+        } else {
+            // Regular columns: render all 7 cells
+            cellsToRender = Array.from({ length: 7 }, (_, cellIndex) => {
+                const cellNumber = (colIndex * 7) + cellIndex;
+                return <DayCell key={`${colIndex}-${cellIndex}`} value={0} index={cellNumber - 3} />;
+            });
+        }
+
+        return (
+            <div key={colIndex} className="flex flex-col gap-1">
+                {cellsToRender}
+            </div>
+        );
+    });
 
     return (
         <>
-            <div className="w-[950px] mx-auto mt-25">
+            <div className="w-[930px] mx-auto mt-25">
                 <p className="text-white mb-2 text-lg font-medium ml-2">0 hours deep in 2025</p>
                 <div className="h-[200px] border-1 rounded-xl bg-transparent mb-50 p-[18px]" style={{ borderColor: '#2D2D2D' }}>
                     <div className="flex">
